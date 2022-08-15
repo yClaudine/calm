@@ -7,10 +7,11 @@
 <title>joinFrm</title>
 </head>
 <style>
+
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Shadows+Into+Light&display=swap');
 
 *{
-    background-color: #333;
+    background-color: rgb(0, 0, 0);
     color: rgb(224, 217, 203);
 }
 
@@ -95,12 +96,11 @@ h1{
     --error-color:#e74c3c;
 }
 .simple{
-    background-color: #fff;
+    background-color: rgb(83, 83, 83);
     border-radius: 5px;
+    border: 1px solid rgb(186, 185, 185);
     box-shadow: 5px 5px 15px rgba(255, 255, 255, 0.3);
     width: 500px;
-    border: 1px solid rgb(186, 185, 185);
-    
 }
 .simple div{
     padding:30px 40px;
@@ -111,11 +111,10 @@ h1{
     margin-top: 50px;
     background-color: #fff;
     border-radius: 5px;
+    border: 1px solid rgb(186, 185, 185);
+
     box-shadow: 5px 5px 15px rgba(255, 255, 255, 0.3);
     width: 500px;
-    border: 1px solid rgb(186, 185, 185);
-    
-    
 }
 
 h2{
@@ -211,10 +210,11 @@ h2{
 .email-box{
     display: flex;
 }
+
 </style>
 <body>
 	<%@include file="/WEB-INF/views/common/header.jsp" %>
-	    <div class="main">
+    <div class="main">
         <div class="content">   
             <div class="navi">
                 <div class="navi1">
@@ -224,7 +224,7 @@ h2{
                 </div>
                 <div class="navi2">
                     <ul class="n1">
-                        <li><a href="#">멤버십 가입</a></li>
+                        <li><a href="#">멤버십 업그레이드</a></li>
                     </ul>
                 </div>
             </div>
@@ -234,10 +234,7 @@ h2{
 
                 <div class="simple">
                     <div>
-                    <h2>간편 가입</h2>
-                        카카오톡으로 가입
-                        네이버로 가입 
-                        이메일로 가입
+                    <h2>멤버십 선택 약관</h2>
                     </div>
                 </div>
 
@@ -247,14 +244,14 @@ h2{
                         <div class="show-nav" id="email-join">
                             <div class="form-control">
                                 <label for="username">이름</label>
-                                <input type="text" id="username" placeholder="이름을 입력하세요">
+                                <input type="text" id="username" name="memberName" placeholder="이름을 입력하세요">
                                 <small>Error message</small>
                             </div> 
                             <div class="form-control">
-                                <label for="email">Email</label>
+                                <label for="email">이메일</label>
                                 <div class="email-box"></div>
                                 <div class="email-box">
-                                    <input type="text" id="email" placeholder="이메일을 입력하세요">
+                                    <input type="text" id="email" name="email" placeholder="이메일을 입력하세요">
                                     <button type="button"
                                     class="email-confirm">중복확인</button>
                                 </div>
@@ -262,7 +259,7 @@ h2{
                             </div>
                             <div class="form-control">
                                 <label for="password">비밀번호</label>
-                                <input type="password" id="password" placeholder="비밀번호를 입력하세요">
+                                <input type="password" id="password" name="memberPw" placeholder="비밀번호를 입력하세요">
                                 <small>Error message</small>
                             </div>
                             <div class="form-control">
@@ -327,7 +324,7 @@ function checkRequired(inputArr){
         if(input.value.trim() === ''){
             //whatever the iteration is, 모두 적용가능
             //console.log(input.id);
-            showError(input,`모두 입력해주세요`);//함수로
+            showError(input,"모두 입력해주세요");//함수로
         }else{
             showSuccess(input);//pass in
         }
@@ -336,9 +333,9 @@ function checkRequired(inputArr){
 //check input length - 이름, 비밀번호 길이 제한
 function checkLength(input, min, max){
     if(input.value.length < min){
-        showError(input,`최소 2글자 이상이어야 합니다`);
+        showError(input,"최소 2글자 이상이어야 합니다");
     }else if(input.value.length > max){
-        showError(input,`최대 15글자 이하여야 합니다.`);
+        showError(input,"최대 15글자 이하여야 합니다.");
     }else{
         showSuccess(input);
     }
@@ -347,7 +344,7 @@ function checkLength(input, min, max){
 //check passwords match - 비밀번호 일치 확인
 function checkPasswordsMatch(input1, input2){
     if(input1.value != input2.value){
-        showError(input2, '비밀번호가 일치하지 않습니다');
+        showError(input2, "비밀번호가 일치하지 않습니다");
     }
 }
 

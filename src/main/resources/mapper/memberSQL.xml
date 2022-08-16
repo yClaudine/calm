@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace = "member">
-
+	<!-- 회원가입 -->
+	<insert id="join" parameterType="m">
+		insert into member 
+			values(member_seq.nextval,#{memberName},#{memberPw},#{email},null,1,null,null)
+	</insert> <!-- db가 아니라 java VO 순서대로 들어감 -->
+	
+	<!-- 로그인 -->
+	<select id="login" parameterType="m" resultType="m">
+		select
+			member_name as memberName,
+			member_pw as memberPw,
+			email,
+			image_filepath as imageFilepath,
+			grade,
+			report,
+			warning
+		from member where email=#{email}
+		<if test="memberPw != null">
+			and member_pw=#{memberPw}
+		</if>
+	</select>
+	
+	<!-- 비밀번호 새로 업데이트//////////////////////////////////////// -->
+	<update id="newPw" parameterType="m">
+		update member set member_pw=#{memberPw} where member_name=#{memberName}
+	</update>
 </mapper>

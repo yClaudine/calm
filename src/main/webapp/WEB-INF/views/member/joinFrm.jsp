@@ -239,7 +239,7 @@ h2{
                 </div>
 
                 <div class="container">
-                    <form action="" id="form" class="form">
+                    <form action="/join.do" id="form" class="form" method="post">
                         <h2 class="email-toggle" onclick="toggleButton()">이메일로 가입</h2>
                         <div class="show-nav" id="email-join">
                             <div class="form-control">
@@ -333,9 +333,9 @@ function checkRequired(inputArr){
 //check input length - 이름, 비밀번호 길이 제한
 function checkLength(input, min, max){
     if(input.value.length < min){
-        showError(input,"최소 2글자 이상이어야 합니다");
+        showError(input,"최소 글자 이상이어야 합니다");
     }else if(input.value.length > max){
-        showError(input,"최대 15글자 이하여야 합니다.");
+        showError(input,"최대 글자 이하여야 합니다.");
     }else{
         showSuccess(input);
     }
@@ -360,12 +360,12 @@ function getFieldName(input){
 //Event Listeners
 form.addEventListener('submit',function(e){
     //event parameter : 모든 속성, 함수 등을 넣는 매개변수
-    e.preventDefault(); //실제 제출되는 것(깜박임) 막음
+    //e.preventDefault(); //실제 제출되는 것(깜박임) 막음
     //console.log(username.value);
     
     checkRequired([username,password,password2]);
     checkLength(username,2,15);
-    checkLength(password,6,25);
+    checkLength(password,4,25);
     //checkEmail(email);
     checkPasswordsMatch(password,password2);
 

@@ -30,7 +30,7 @@ public class MemberController {
         return "redirect:"+loginUrl.toString();
 	}
 	
-	//kakao 로그인했을 때 리다이렉트
+	/*kakao 로그인했을 때 리다이렉트
 	@RequestMapping(value="kakao_callback")
 	public String redirectKakaoAPI(@RequestParam String code, HttpSession session) {
 		//String code 값을 @RequestParam을 이용해 필수적으로 받게 되어 있음
@@ -49,15 +49,61 @@ public class MemberController {
         member.setImageFilepath((String)result.get("profile_image"));
         
         session.setAttribute("member", member);
-        /*로그아웃 처리 시, 사용할 토큰 값*/
+        //로그아웃 처리 시, 사용할 토큰 값
         session.setAttribute("kakaoToken", kakaoToken);
 		
 		return "redirect:/";
 	}
-	
+	*/
 	//join Frm 이동
-	@RequestMapping(value="join.do")
+	@RequestMapping(value="joinFrm.do")
 	public String joinFrm() {
 		return "member/joinFrm";
 	}
+	
+	//join 회원가입 - AOP 암호화
+	@RequestMapping(value="join.do")
+	public String join(Member m) {
+		System.out.println(m);
+		int result = service.joinMember(m); //암호화
+		if(result==1) {
+			return "redirect:/";
+		}else{
+			return "redirect:/joinFrm.do";			
+		}
+	}
+	//로그인 - AOP 암호화
+	@RequestMapping(value="login.do")
+	public String login(Member m, HttpSession session) {
+		Member member = service.loginMember(m);
+		if(member!=null) {
+			session.setAttribute("m", member);
+		}
+		return "redirect:/";
+	}
+	
+	//로그아웃
+	@RequestMapping(value="logout.do")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
+	
+	//마이페이지 이동
+	@RequestMapping(value="mypage.do")
+	public String mypage(Member m, String memberPwNew) {
+		int result = service.changePw(m,memberPwNew);
+		if(result == -1) {
+			return "member/mypage";
+		}else if(result > 0){ //성공
+			return "redirect:/";
+		}else {			
+			return "member/mypage";
+		}
+	}
+	
+	
+	
+	
+	
 }

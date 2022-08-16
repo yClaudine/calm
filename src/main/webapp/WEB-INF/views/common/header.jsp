@@ -318,14 +318,27 @@ img{
 	            <a href="/">Calm</a>
 	        </div>
 	        <div class="link-box">
-	            <button class="cta-btn" id="open">login</button>
-	            <button onclick="location.href='/join.do'" class="cta-btn">sign up</button>
+	        	<c:choose>
+	                <c:when test="${empty sessionScope.m}">
+		            	<button class="cta-btn" id="open">login</button>
+		            	<button onclick="location.href='/joinFrm.do'" class="cta-btn">sign up</button>
+		            </c:when>
+		            <c:when test="${!empty sessionScope.m && sessionScope.m.grade == 1}">
+		            	<button onclick="location.href='/logout.do'" class="cta-btn" style="font-size:15px;">로그아웃</button>	            
+		            	<button class="cta-btn" id="open"onclick="location.href='/mypage.do'" style="font-size:15px;">${sessionScope.m.memberName }님</button>
+		            </c:when>
+		            <c:when test="${!empty sessionScope.m && sessionScope.m.grade == 0}">
+		            	<button onclick="location.href='/logout.do'" class="cta-btn" style="font-size:15px;">로그아웃</button>	            
+		               	<button class="cta-btn" id="open"onclick="location.href='/admin.do'" style="font-size:15px;">관리자 페이지</button>
+		            </c:when>
+	        	</c:choose>
+	            
 	        </div>
 	    </div>   
 	    <div class="nav-wrap"><!--nav-wrap-->
 	        <ul class="nav">
 	            <li><a href="#">청음실</a></li>
-	            <li><a href="rest.html">쉬다</a></li>
+	            <li><a href="/rest.do">쉬다</a></li>
 	            <li><a href="#">함께하다</a></li>
 	            <li><a href="#">about Calm</a></li>
 	        </ul>
@@ -344,19 +357,20 @@ img{
             </div>
 
             <div class="modal-content"><!--내용-->
-                <form class="modal-form">
+                <form class="modal-form" action="/login.do" method="post">
                     <div>
-                        <label for="name">id</label>
-                        <input type="text" id="name" placeholder="이메일을 입력하세요" class="form-input">
+                        <label for="name">이메일</label>
+                        <input type="text" id="name" placeholder="이메일을 입력하세요" class="form-input" name="email">
                     </div>
                     <div>
-                        <label for="pw">password</label>
-                        <input type="password" id="pw" placeholder="비밀번호를 입력하세요" class="form-input">
+                        <label for="pw">비밀번호</label>
+                        <input type="password" id="pw" placeholder="비밀번호를 입력하세요" class="form-input" name="memberPw">
                     </div>
                     <span class="buttons">
-                        <button type="button" class="join-cta">회원가입</button>
-                        <button type="button" class="find-password">비밀번호를 잊어버리셨나요?</button>
-                    </span><br><br>
+	                    <button type="button" class="join-cta" onclick="location.href='/joinFrm.do'">회원가입</button>
+	                    <button type="button" class="find-password" onclick="location.href='/mypage.do'">비밀번호를 잊어버리셨나요?</button>
+	                    <button type="submit" style="color:rgb(222, 204, 138)">로그인</button>    
+                    </span>
                 </form>
                 <div>------------------------ or ------------------------</div>
                 <div>

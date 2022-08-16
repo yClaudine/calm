@@ -18,12 +18,15 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import kr.or.member.model.dao.MemberDao;
+import kr.or.member.model.vo.Member;
 
 @Service
 public class MemberService {
 
 	@Autowired
 	private MemberDao dao;
+	@Autowired
+	private SHA256Enc enc;
 
 	//카카오 리다이레트
 	public String getReturnAccessToken(String code) {
@@ -76,10 +79,8 @@ public class MemberService {
         return access_token;
 	}
 
-
-
 	//카카오 리다이렉트
-	//@Override
+	/*@Override
 	public Map<String, Object> getUserInfo(String kakaoToken) {
 	       Map<String,Object> resultMap =new HashMap<>();
 	        String reqURL = "https://kapi.kakao.com/v2/user/me";
@@ -120,6 +121,41 @@ public class MemberService {
 	             e.printStackTrace();
 	         }
 	         return resultMap;
+	}*/
+
+
+	//join 회원가입
+	public int joinMember(Member m) {
+		// TODO Auto-generated method stub
+		return dao.join(m);
+	}
+
+	//로그인
+	public Member loginMember(Member m) {
+		//둘 중 하나라도 비어있으면 강제로 예외처리 발생시켜둠
+		if(m.getEmail().isEmpty() || m.getMemberPw().isEmpty()) {
+			throw new IllegalArgumentException("이메일이나 비밀번호를 입력하시오");
+		}
+		return dao.login(m);
+	}
+	
+	//새 비밀번호로 변경 - AOP 말고 그냥 암호화
+	public int changePw(Member m, String memberPwNew) {
+		//여기서 기존 pw, 새 비밀번호를 암호화 (autowired enc해준 후)
+		try {
+			String oldPwEnc = enc.endDate(m.getMemberPw());
+			m.setMemberPw(oldPwEnc);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Member member = dao.login(m); //로그인하듯이 한 사람 조회
+		if(member == null) {
+			return -1;
+		}
+		m.setMemberPw(memberPwNew);
+		int result = dao.newPwMember(m);
+		return result;
 	}
 
 

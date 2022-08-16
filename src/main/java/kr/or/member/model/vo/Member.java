@@ -14,8 +14,8 @@ public class Member {
 	private int memberNo;
 	private String memberName;
 	private String memberPw;
-	private String imageFilepath;
 	private String email;
+	private String imageFilepath;
 	private int grade;
 	private int report;
 	private int warning;

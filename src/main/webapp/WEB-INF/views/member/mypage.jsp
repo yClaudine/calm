@@ -230,35 +230,37 @@ h2{
             <div class="profile">
                 <h1>My Page</h1>
 
+			<c:if test="${!empty sessionScope.m }">
                 <div class="container">
                     <form action="/newPw.do" id="form1" class="form">
                         <h2 class="email-toggle" onclick="toggleButton()">비밀번호 변경</h2>
                         <div class="show-nav" id="email-join">
                             <div class="form-control">
                                 <label for="username">기존 비밀번호</label>
-                                <input type="text" id="username" name="memberpW" placeholder="기존 비밀번호를 입력하세요">
+                                <input type="password" id="username" name="memberpW" placeholder="기존 비밀번호를 입력하세요">
                                 <small>Error message</small>
                             </div> 
                             <div class="form-control">
                                 <label for="password">새 비밀번호</label>
                                 <div class="form-control">
-                                    <input type="text" id="password" name="memberPwNew" placeholder="새 비밀번호를 입력하세요">
+                                    <input type="password" id="password" name="memberPwNew" placeholder="새 비밀번호를 입력하세요">
                                 </div>
                                 <small>Error message</small>
                             </div>
                             <div class="form-control">
                                 <label for="password2">새 비밀번호 확인</label>
                                 <div class="form-control">
-                                    <input type="text" id="password2" placeholder="새 비밀번호를 다시 입력하세요">
+                                    <input type="password" id="password2" placeholder="새 비밀번호를 다시 입력하세요">
                                 </div>
                                 <small>Error message</small>
                             </div>
         
-                            <input type="hidden" name="memberName">
+                            <input type="hidden" name="email" value="${sessionScope.m.email }">
                             <button type="submit">비밀번호 변경</button>
                         </div>
                     </form>
                 </div>
+              </c:if>  
 
                 <div class="container">
                     <form action="" id="form2" class="form">

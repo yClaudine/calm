@@ -25,6 +25,6 @@
 	
 	<!-- 비밀번호 새로 업데이트//////////////////////////////////////// -->
 	<update id="newPw" parameterType="m">
-		update member set member_pw=#{memberPw} where member_name=#{memberName}
+		update member set member_pw=#{memberPw} where email=#{email}
 	</update>
 </mapper>

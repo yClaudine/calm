@@ -102,8 +102,19 @@ public class MemberController {
 		}
 	}
 	
+	//새 비밀번호로 변경
+	@RequestMapping(value="newPw.do")
+	public String newPw(Member m, String memberPwNew) {
+		int result = service.changePw(m,memberPwNew);
+		if(result == -1) {
+			return "member/mypage";
+		}else if(result > 0) {
+			return "redirect:/";
+		}else {
+			return "member/mypage";
+		}
 	
-	
+	}
 	
 	
 }

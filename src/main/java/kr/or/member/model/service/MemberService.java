@@ -28,7 +28,7 @@ public class MemberService {
 	@Autowired
 	private SHA256Enc enc;
 
-	//카카오 리다이레트
+	//카카오 리다이렉트
 	public String getReturnAccessToken(String code) {
         String access_token = "";
         String refresh_token = "";

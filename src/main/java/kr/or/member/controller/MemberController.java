@@ -116,5 +116,16 @@ public class MemberController {
 	
 	}
 	
+	//rest 페이지 이동
+	@RequestMapping(value="rest.do")
+	public String rest() {
+		return "member/rest";
+	}
+	
+	//seat 페이지 이동
+	@RequestMapping(value="seat.do")
+	public String seat() {
+		return "member/seat";
+	}
 	
 }

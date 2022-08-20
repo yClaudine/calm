@@ -337,7 +337,7 @@ img{
 	    </div>   
 	    <div class="nav-wrap"><!--nav-wrap-->
 	        <ul class="nav">
-	            <li><a href="#">청음실</a></li>
+	            <li><a href="/seat.do">청음실</a></li>
 	            <li><a href="/rest.do">쉬다</a></li>
 	            <li><a href="#">함께하다</a></li>
 	            <li><a href="#">about Calm</a></li>
